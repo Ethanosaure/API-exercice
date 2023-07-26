@@ -22,6 +22,12 @@ class controller
 
         
     }
+    public function add($title, $body, $author)
+    {
+        $model = new model();
+
+        $model->addToDb($title, $body, $author);
+    }
 }
 
 ?>

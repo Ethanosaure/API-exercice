@@ -14,11 +14,19 @@ if ($parts[3] == 'GET'){
     $getAll->showAll();
     }
 }
+if ($parts[3] == 'POST'){
+    $post = new controller();
+    $title = 'test';
+    $body = 'test'; 
+    $author = 'test';
+    $post->add($title, $body, $author);
+}
 if ($parts[3] != 'GET'){
     echo 'PAGE NOT FOUND';
     http_response_code(404);
     exit();
 }
+
 
 
 

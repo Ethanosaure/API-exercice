@@ -31,6 +31,17 @@ class model{
 
         return $result;
     }
+    public function addToDb($title, $body, $author)
+    {
+        $request = 'INSERT INTO posts (title, body, author, created_at, updated_at)
+        VALUES (:title, :body, :author, now(), now())';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':body', $body);
+        $statement->bindParam(':author', $author);
+        $statement->execute();
+
+    }
 
 }
 
