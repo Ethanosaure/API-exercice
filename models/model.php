@@ -25,7 +25,7 @@ class model{
         $statement->execute();
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
 
-        if ($result === 'false'){
+        if ($result === false){
             return false;
         }
 
@@ -41,6 +41,28 @@ class model{
         $statement->bindParam(':author', $author);
         $statement->execute();
 
+    }
+    public function modify($title, $author, $body, $id)
+    {
+        $request = 'UPDATE posts SET title = :title, author = :author, body = :body WHERE id = :id';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':author', $author);
+        $statement->bindParam(':body', $body);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+
+        if ($statement === false){
+            return false;
+        }
+
+    }
+    public function deleting($id)
+    {
+        $request = 'DELETE FROM posts WHERE id = :id';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
     }
 
 }
