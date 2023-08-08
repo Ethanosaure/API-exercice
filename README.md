@@ -1,6 +1,6 @@
-# RESTfull API exercice
+# RESTful API exercice
 
-this is an exercice to learn how to create a RESTfull APi with php.
+this is an exercice to learn how to create a RESTful APi with php.
 
 ## Objectives
 
@@ -16,6 +16,7 @@ this is an exercice to learn how to create a RESTfull APi with php.
 
 ```http
 the API has the following endpoints
+
 ```
 
 | Parameter | endpoints        | Description             |
