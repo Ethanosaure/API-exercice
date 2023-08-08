@@ -38,7 +38,7 @@ switch ($parts){
         echo 'element added';
 
         } else {
-            echo 'error, cannot add element';
+            echo 'error, cannot add element, check if all the post are fill';
             http_response_code(400);
         }
     }
@@ -47,14 +47,15 @@ switch ($parts){
         case '/PUT?id='.$id.'':
             if ($method === 'PUT'){
                 $data = json_decode(file_get_contents('php://input'), true);
-                if (!$data['title'] && !$data['body'] && !$data['author']){
-                echo 'cannot update';
+                if (!isset($data['title']) && !isset($data['body']) && !isset($data['author'])){
+                echo 'cannot update, check your informations';
                 http_response_code(400);
+                return;
                 }
                 else {
-                $title = $data['title'] ? $data['title'] : 0; 
-                $body = $data['body'] ?  $data['body'] :  0;
-                $author = $data['author'] ? $data['author'] : 0;
+                $title = $data['title'] ?? 0; 
+                $body = $data['body'] ?? 0;
+                $author = $data['author'] ?? 0;
                 $response = new controller();
                 $response->charliePuth($title, $author, $body, $id);
                 http_response_code(200); 

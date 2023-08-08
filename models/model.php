@@ -44,7 +44,7 @@ class model{
     }
     public function modify($title, $author, $body, $id)
     {
-        if ($title == 0 && $body && $author) {
+        if ($title === 0 && $body && $author) {
         $request = 'UPDATE posts SET author = :author, body = :body WHERE id = :id';
         $statement = $this->bdd->prepare($request);
         $statement->bindParam(':author', $author);
@@ -53,7 +53,7 @@ class model{
         $statement->execute();
         return;
 
-        } else if ($title && $body == 0 && $author) {
+        } else if ($title && $body === 0 && $author) {
         $request = 'UPDATE posts SET title = :title, author = :author WHERE id = :id';
         $statement = $this->bdd->prepare($request);
         $statement->bindParam(':title', $title);
@@ -62,7 +62,7 @@ class model{
         $statement->execute();
         return;
 
-        } else if ($title && $body && $author == 0) {
+        } else if ($title && $body && $author === 0) {
         $request = 'UPDATE posts SET title = :title, body = :body WHERE id = :id';
         $statement = $this->bdd->prepare($request);
         $statement->bindParam(':title', $title);
