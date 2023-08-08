@@ -28,18 +28,29 @@ switch ($parts) {
     case "/POST":
         if ($method === "POST") {
             $data = json_decode(file_get_contents("php://input"), true);
-            if ($data["title"] && $data["body"] && $data["author"]) {
+            if (isset($data["title"]) && isset($data["body"]) && isset($data["author"])) {
                 $title = $data["title"];
                 $body = $data["body"];
                 $author = $data["author"];
                 $title = filter_var($title, FILTER_SANITIZE_STRING);
                 $body = filter_var($body, FILTER_SANITIZE_STRING);
                 $author = filter_var($author, FILTER_SANITIZE_STRING);
+                $pattern = '/^[A-Za-z0-9\s.,!?\'"-]+$/';
+                 if (
+                !preg_match($pattern, $title) ||
+                !preg_match($pattern, $body) ||
+                !preg_match($pattern, $author)
+                ){
+                    echo 'please remove all special characters from your informations';
+                    http_response_code(400);
+                } else {
                 $response = new controller();
                 $response->add($title, $body, $author);
                 http_response_code(201);
                 echo "element added";
-            } else {
+            }
+        }
+                else {
                 echo "error, cannot add element, check if all the post are fill";
                 http_response_code(400);
             }
