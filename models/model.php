@@ -89,7 +89,7 @@ class model{
         $request = 'DELETE FROM posts WHERE id = :id';
         $statement = $this->bdd->prepare($request);
         $statement->bindParam(':id', $id);
-        $statement->execute();
+        $result = $statement->execute();
     }
 
 }

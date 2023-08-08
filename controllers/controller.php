@@ -44,10 +44,12 @@ class controller
     }
     public function delete($id)
     {
-        $model = new model();
-
-        $model->deleting($id);
+    $model = new model();
+    $model->deleting($id);
+    echo 'element successfully removed';
+    http_response_code(200);
     }
-}
+        
+    }
 
 ?>

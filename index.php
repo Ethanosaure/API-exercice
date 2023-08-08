@@ -13,9 +13,15 @@ $method = $_SERVER["REQUEST_METHOD"];
 switch ($parts) {
     case "/GET?id=" . $id . "":
         if ($method === "GET") {
-            $response = new controller();
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-            $response->show($id);
+            if (filter_var($id, FILTER_VALIDATE_INT) == false){
+                echo 'invalid id, please enter only numbers';
+                http_response_code(400);
+                
+            } else {
+                $response = new controller();
+                $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+                $response->show($id);
+            }
         }
         break;
     case "/GET":
@@ -59,6 +65,11 @@ switch ($parts) {
 
     case "/PUT?id=" . $id . "":
         if ($method === "PUT") {
+            if (filter_var($id, FILTER_VALIDATE_INT) == false){
+                echo 'invalid id, please enter only numbers';
+                http_response_code(400);
+                
+            } else {
             $data = json_decode(file_get_contents("php://input"), true);
             if (
                 !isset($data["title"]) &&
@@ -89,15 +100,20 @@ switch ($parts) {
             }
         }
     }
+}
         break;
 
     case "/DELETE?id=" . $id . "":
         if ($method === "DELETE") {
+            if (filter_var($id, FILTER_VALIDATE_INT) == false){
+                echo 'invalid id, please enter only numbers';
+                http_response_code(400);
+            } else {
             $response = new controller();
-            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $response->delete($id);
             http_response_code(200);
         }
+    }
     default:
         http_response_code(400);
         break;
