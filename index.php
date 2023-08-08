@@ -13,8 +13,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($parts){
     case '/GET?id='.$id.'':
        if ($method === 'GET'){
-                $response = new controller ();
-                $response->show($id);  
+            $response = new controller ();
+            $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+            $response->show($id);
         }
         break;
     case '/GET':
@@ -56,6 +57,7 @@ switch ($parts){
                 $title = $data['title'] ?? 0; 
                 $body = $data['body'] ?? 0;
                 $author = $data['author'] ?? 0;
+                $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
                 $response = new controller();
                 $response->charliePuth($title, $author, $body, $id);
                 http_response_code(200); 
@@ -66,6 +68,7 @@ switch ($parts){
         case '/DELETE?id='.$id.'':
             if ($method === 'DELETE'){
                 $response = new controller();
+                $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
                 $response->delete($id);
                 http_response_code(200);
             }
