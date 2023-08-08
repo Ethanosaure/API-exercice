@@ -44,6 +44,33 @@ class model{
     }
     public function modify($title, $author, $body, $id)
     {
+        if ($title == 0 && $body && $author) {
+        $request = 'UPDATE posts SET author = :author, body = :body WHERE id = :id';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':author', $author);
+        $statement->bindParam(':body', $body);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return;
+
+        } else if ($title && $body == 0 && $author) {
+        $request = 'UPDATE posts SET title = :title, author = :author WHERE id = :id';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':author', $author);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return;
+
+        } else if ($title && $body && $author == 0) {
+        $request = 'UPDATE posts SET title = :title, body = :body WHERE id = :id';
+        $statement = $this->bdd->prepare($request);
+        $statement->bindParam(':title', $title);
+        $statement->bindParam(':body', $body);
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        return;
+        } else{
         $request = 'UPDATE posts SET title = :title, author = :author, body = :body WHERE id = :id';
         $statement = $this->bdd->prepare($request);
         $statement->bindParam(':title', $title);
@@ -51,7 +78,7 @@ class model{
         $statement->bindParam(':body', $body);
         $statement->bindParam(':id', $id);
         $statement->execute();
-
+        }
         if ($statement === false){
             return false;
         }

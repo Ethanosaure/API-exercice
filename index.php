@@ -47,19 +47,18 @@ switch ($parts){
         case '/PUT?id='.$id.'':
             if ($method === 'PUT'){
                 $data = json_decode(file_get_contents('php://input'), true);
-                if ($data['title'] && $data['body'] && $data['author']){
-                $title = $data['title'];
-                $author = $data['author'];
-                $body = $data['body'];
-                $response = new controller();
-                $response->charliePuth($title, $author, $body, $id);
-                http_response_code(200);
+                if (!$data['title'] && !$data['body'] && !$data['author']){
+                echo 'cannot update';
+                http_response_code(400);
                 }
                 else {
-                    echo 'cannot update';
-                    http_response_code(400);
+                $title = $data['title'] ? $data['title'] : 0; 
+                $body = $data['body'] ?  $data['body'] :  0;
+                $author = $data['author'] ? $data['author'] : 0;
+                $response = new controller();
+                $response->charliePuth($title, $author, $body, $id);
+                http_response_code(200); 
                 }
-               
             }
             break;
         
