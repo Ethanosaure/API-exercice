@@ -14,9 +14,8 @@ this is an exercice to learn how to create a RESTful APi with php.
 
 #### Get all items
 
-```http
-the API has the following endpoints
-
+```
+The API has the following endpoints:
 ```
 
 | Parameter | endpoints        | Description             |
